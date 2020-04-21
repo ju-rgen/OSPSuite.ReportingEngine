@@ -7,6 +7,7 @@
 simulateModelForPopulation <- function(structureSet,
                                        settings = NULL,
                                        logFolder = getwd()) {
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$populationFile)
   population <- ospsuite::loadPopulation(structureSet$simulationSet$populationFile)
   numberOfIndividuals <- length(population$allIndividualIds)
   numberOfCores <- min(ifnotnull(inputToCheck = settings, outputIfNotNull = settings$numberOfCores, outputIfNull = 1), numberOfIndividuals)
@@ -61,6 +62,7 @@ simulateModelOnCore <- function(structureSet,
                                 resultsFilePath,
                                 debugLogFileName = file.path(defaultFileNames$workflowFolderPath(), defaultFileNames$logDebugFile()),
                                 nodeName = NULL) {
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
   simulation <- loadSimulationWithUpdatedPaths(structureSet$simulationSet)
 
   logDebug(
@@ -109,6 +111,7 @@ simulateModelOnCore <- function(structureSet,
 simulateModel <- function(structureSet,
                           settings = NULL,
                           logFolder = getwd()) {
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
   simulation <- loadSimulationWithUpdatedPaths(structureSet$simulationSet)
 
   logWorkflow(

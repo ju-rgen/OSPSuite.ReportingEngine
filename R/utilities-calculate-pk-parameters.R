@@ -10,7 +10,10 @@ calculatePKParameters <- function(structureSet,
                                   settings = NULL,
                                   logFolder = getwd()) {
 
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
   simulation <- loadSimulationWithUpdatedPaths(structureSet$simulationSet)
+
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationResultFileNames)
   simulationResults <- ospsuite::importResultsFromCSV(
     simulation = simulation,
     filePaths = structureSet$simulationResultFileNames
