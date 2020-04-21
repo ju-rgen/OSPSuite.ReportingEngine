@@ -283,11 +283,14 @@ MeanModelWorkflow <- R6::R6Class(
     #' # 4) Render report
     #' @return All results and plots as a structured output in the workflow folder
     runWorkflow = function() {
+
+      re.tStartMetadataCapture(metaDataCapture = TRUE, offset = 1)
+
       logWorkflow(
         message = "Starting run of mean model workflow",
         pathFolder = self$workflowFolder
       )
-      
+
       if(self$resetReport$active){
         resetReport(self$reportFileName,
                     logFolder = self$workflowFolder)
@@ -340,6 +343,9 @@ MeanModelWorkflow <- R6::R6Class(
           )
         }
       }
+
+      re.tEndMetadataCapture(outputFolder = ".")
+
     },
 
     #' @description
