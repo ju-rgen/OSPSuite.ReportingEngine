@@ -15,6 +15,7 @@ logError <- function(message,
   write(paste0(timeStamp, message),
     file = file, append = TRUE, sep = " "
   )
+  re.tStoreFileMetadata(access = "write", filePath = file)
   return()
 }
 
@@ -35,6 +36,7 @@ logDebug <- function(message,
   write(paste0(timeStamp, message),
     file = file, append = TRUE, sep = " "
   )
+  re.tStoreFileMetadata(access = "write", filePath = file)
   return()
 }
 
@@ -55,6 +57,7 @@ logInfo <- function(message,
   write(paste0(timeStamp, message),
     file = file, append = TRUE, sep = " "
   )
+  re.tStoreFileMetadata(access = "write", filePath = file)
   return()
 }
 
@@ -72,16 +75,21 @@ logWorkflow <- function(message,
                         pathFolder = getwd(),
                         logTypes = c(LogTypes$Info, LogTypes$Debug)) {
   if (LogTypes$Info %in% logTypes) {
+    #re.tStoreFileMetadata(access = "write", filePath = file.path(pathFolder, defaultFileNames$logInfoFile()))
     logInfo(message,
       file = file.path(pathFolder, defaultFileNames$logInfoFile())
     )
   }
+
+
   if (LogTypes$Debug %in% logTypes) {
+    #re.tStoreFileMetadata(access = "write", filePath = file.path(pathFolder, defaultFileNames$logDebugFile()))
     logDebug(message,
       file = file.path(pathFolder, defaultFileNames$logDebugFile())
     )
   }
   if (LogTypes$Error %in% logTypes) {
+    #re.tStoreFileMetadata(access = "write", filePath = file.path(pathFolder, defaultFileNames$logErrorFile()))
     logError(message,
       file = file.path(pathFolder, defaultFileNames$logErrorFile())
     )
