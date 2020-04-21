@@ -15,7 +15,6 @@ logError <- function(message,
   write(paste0(timeStamp, message),
     file = file, append = TRUE, sep = " "
   )
-  re.tStoreFileMetadata(access = "write", filePath = file)
   return()
 }
 
@@ -36,7 +35,6 @@ logDebug <- function(message,
   write(paste0(timeStamp, message),
     file = file, append = TRUE, sep = " "
   )
-  re.tStoreFileMetadata(access = "write", filePath = file)
   return()
 }
 
@@ -57,7 +55,6 @@ logInfo <- function(message,
   write(paste0(timeStamp, message),
     file = file, append = TRUE, sep = " "
   )
-  re.tStoreFileMetadata(access = "write", filePath = file)
   return()
 }
 

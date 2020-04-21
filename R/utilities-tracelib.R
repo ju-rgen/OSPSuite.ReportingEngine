@@ -3,12 +3,14 @@ tracelibCheck <- function(){
 }
 
 re.tStartMetadataCapture <- function(...){
+  print("tStartMetadataCapture")
   if (tracelibCheck()){
-    tracelib::tStartMetadataCapture(...)
+    tracelib::tStartMetadataCapture(...,offset = 2)
   }
 }
 
 re.tEndMetadataCapture <- function(...){
+  print("tEndMetadataCapture")
   if (tracelibCheck()){
     tracelib::tEndMetadataCapture(...)
   }
@@ -21,14 +23,22 @@ re.tStoreFileMetadata <- function(...){
 }
 
 re.tStartAction <- function(...,re.className=NULL,re.methodName=NULL){
+  print("tStartAction")
   if (tracelibCheck()){
     print(paste0(re.className,"$",re.methodName))
-    tracelib::tStartAction(...)
+    tracelib::tStartAction(...,offset = 1)
   }
 }
 
 re.tEndAction <- function(...){
+  print("tEndAction")
   if (tracelibCheck()){
     tracelib::tEndAction(...)
   }
 }
+
+
+
+# re.tStoreFileMetadata(access = "write", filePath = file.path(defaultFileNames$workflowFolderPath(), defaultFileNames$logErrorFile()))
+# re.tStoreFileMetadata(access = "write", filePath = file.path(defaultFileNames$workflowFolderPath(), defaultFileNames$logDebugFile()))
+# re.tStoreFileMetadata(access = "write", filePath = file.path(defaultFileNames$workflowFolderPath(), defaultFileNames$logInfoFile()))

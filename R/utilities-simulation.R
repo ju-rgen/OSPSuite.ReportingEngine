@@ -7,6 +7,7 @@
 simulateModelForPopulation <- function(structureSet,
                                        settings = NULL,
                                        logFolder = getwd()) {
+
   re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$populationFile)
   population <- ospsuite::loadPopulation(structureSet$simulationSet$populationFile)
   numberOfIndividuals <- length(population$allIndividualIds)
@@ -24,7 +25,7 @@ simulateModelForPopulation <- function(structureSet,
       message = "Starting parallel population simulation",
       pathFolder = logFolder
     )
-
+    re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
     simulationResultFileNames <- runParallelPopulationSimulation(
       numberOfCores = numberOfCores,
       structureSet = structureSet,
@@ -62,7 +63,7 @@ simulateModelOnCore <- function(structureSet,
                                 resultsFilePath,
                                 debugLogFileName = file.path(defaultFileNames$workflowFolderPath(), defaultFileNames$logDebugFile()),
                                 nodeName = NULL) {
-  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
+
   simulation <- loadSimulationWithUpdatedPaths(structureSet$simulationSet)
 
   logDebug(
