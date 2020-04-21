@@ -18,10 +18,10 @@ SimulationTask <- R6::R6Class(
                           settings = NULL,
                           ...) {
       super$initialize(...)
-      if(is.null(settings)){
+      if (is.null(settings)) {
         self$settings <- SimulationSettings$new()
-      } else{
-        validateIsOfType(object = settings,SimulationSettings)
+      } else {
+        validateIsOfType(object = settings, SimulationSettings)
         self$settings <- settings
       }
       self$getTaskResults <- getTaskResults
@@ -38,12 +38,15 @@ SimulationTask <- R6::R6Class(
         taskResults,
         set$simulationResultFileNames
       )
+      re.tStoreFileMetadata(access = "write", filePath = set$simulationResultFileNames)
     },
 
     #' @description
     #' Run task and save its output
     #' @param structureSets list of `SimulationStructure` R6 class
     runTask = function(structureSets) {
+      re.tStartAction(actionType = "Simulation", re.className = class(self)[1], re.methodName = tail(strsplit(x = as.character(match.call()[1]), split = "$", fixed = TRUE)[[1]], 1))
+      print(as.character(match.call()))
       logWorkflow(
         message = paste0("Starting ", self$message),
         pathFolder = self$workflowFolder

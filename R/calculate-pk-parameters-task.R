@@ -21,12 +21,14 @@ CalculatePKParametersTask <- R6::R6Class(
       ospsuite::exportPKAnalysesToCSV(taskResults,
                                       set$pkAnalysisResultsFileNames
                                       )
+      re.tStoreFileMetadata(access = "write", filePath = set$pkAnalysisResultsFileNames)
     },
 
     #' @description
     #' Run task and save its output
     #' @param structureSets list of `SimulationStructure` R6 class
     runTask = function(structureSets) {
+      re.tStartAction(actionType = "PKParameterCalculation", re.className = class(self)[1], re.methodName = tail(strsplit(x = as.character(match.call()[1]), split = "$", fixed = TRUE)[[1]], 1))
       logWorkflow(
         message = paste0("Starting ", self$message),
         pathFolder = self$workflowFolder
@@ -62,6 +64,7 @@ CalculatePKParametersTask <- R6::R6Class(
 
         }
       }
+      re.tEndAction()
     }
   )
 )
