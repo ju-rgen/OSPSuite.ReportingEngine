@@ -12,7 +12,7 @@ re.tStartMetadataCapture <- function(...){
 re.tEndMetadataCapture <- function(...){
   print("tEndMetadataCapture")
   if (tracelibCheck()){
-    tracelib::tEndMetadataCapture(...)
+    tracelib::tEndMetadataCapture(...,offset = 2)
   }
 }
 
@@ -33,7 +33,7 @@ re.tStartAction <- function(...,re.className=NULL,re.methodName=NULL){
 re.tEndAction <- function(...){
   print("tEndAction")
   if (tracelibCheck()){
-    tracelib::tEndAction(...)
+    tracelib::tEndAction(...,offset = 1)
   }
 }
 
