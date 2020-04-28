@@ -73,6 +73,8 @@ SimulationTask <- R6::R6Class(
           )
         }
       }
+      re.tEndAction()
+
     }
   )
 )
