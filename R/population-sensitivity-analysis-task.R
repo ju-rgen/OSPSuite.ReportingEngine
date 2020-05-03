@@ -36,13 +36,13 @@ PopulationSensitivityAnalysisTask <- R6::R6Class(
       results <- taskResults$populationSensitivityResults
       indexDataFrame <- taskResults$indexDataFrame
       indexFileName <- taskResults$indexFileName
-      resultFilePath <- file.path(self$workflowFolder, self$outputFolder, fileName)
+
       for (fileName in names(results)) {
         ospsuite::exportSensitivityAnalysisResultsToCSV(
           results = results[[fileName]],
-          filePath = resultFilePath
+          filePath = file.path(self$workflowFolder, self$outputFolder, fileName)
         )
-        re.tStoreFileMetadata(access = "write", filePath = resultFilePath)
+        re.tStoreFileMetadata(access = "write", filePath = file.path(self$workflowFolder, self$outputFolder, fileName))
       }
       indexFilePath <-  file.path(self$workflowFolder, self$outputFolder, indexFileName)
       write.csv(x = indexDataFrame, file = indexFilePath, row.names = FALSE)
