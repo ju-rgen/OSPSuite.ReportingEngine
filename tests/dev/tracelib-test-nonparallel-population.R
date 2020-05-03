@@ -12,6 +12,7 @@ runscript <- function(){
     pathID = tree$Organism$VenousBlood$Plasma$smarties$Concentration$path
   )
   pwf <- PopulationWorkflow$new(simulationSets = list(ps), workflowFolder = workflowFolder)
+  setwd(workflowFolder)
   pwf$simulatePopulation$settings$showProgress <- FALSE
   pwf$simulatePopulation$activate()
   pwf$populationPKParameters$activate()
