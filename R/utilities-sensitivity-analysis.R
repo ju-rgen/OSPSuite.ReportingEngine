@@ -20,6 +20,7 @@ runSensitivity <- function(structureSet,
   numberOfCores <- settings$numberOfCores
   showProgress <- settings$showProgress
 
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
   sim <- loadSimulationWithUpdatedPaths(structureSet$simulationSet)
 
   allVariableParameterPaths <- ospsuite::potentialVariableParameterPathsFor(simulation = sim)
@@ -54,6 +55,7 @@ runSensitivity <- function(structureSet,
   # If there is no population file and individualId then do SA for mean model
   # If there is no population file and no individualId then do SA for mean model.
   if (!is.null(popFilePath)) { # Determine if SA is to be done for a single individual or more
+    re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$populationFile)
     popObject <- loadPopulation(popFilePath)
     resultsFileName <- resultsFileName %||% "sensitivityAnalysisResults"
     individualSeq <- individualId %||% seq(1, popObject$count)
@@ -335,6 +337,7 @@ analyzeCoreSensitivity <- function(simulation,
 #' @return pkResultsDataFrame, a dataframe storing the contents of the CSV file with path pkParameterResultsFilePath
 #' @import ospsuite
 getPKResultsDataFrame <- function(pkParameterResultsFilePath, pkParameterSelection) {
+  re.tStoreFileMetadata(access = "read",filePath = pkParameterResultsFilePath)
   pkResultsDataFrame <- read.csv(pkParameterResultsFilePath, encoding = "UTF-8", check.names = FALSE, stringsAsFactors = FALSE)
   if (!is.null(pkParameterSelection)) {
     pkResultsDataFrame <- pkResultsDataFrame[pkResultsDataFrame$Parameter %in% pkParameterSelection, ]
@@ -484,6 +487,7 @@ defaultQuantileVec <- c(0.05, 0.5, 0.95)
 plotMeanSensitivity <- function(structureSet,
                                 logFolder = getwd(),
                                 settings = NULL) {
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
   simulation <- loadSimulationWithUpdatedPaths(structureSet$simulationSet)
   saResults <- ospsuite::importSensitivityAnalysisResultsFromCSV(
     simulation = simulation,
@@ -580,6 +584,7 @@ plotTornado <- function(data,
 plotPopulationSensitivity <- function(structureSet,
                                       logFolder = getwd(),
                                       settings) {
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$popSensitivityAnalysisResultsIndexFile)
   indexDf <- read.csv(file = structureSet$popSensitivityAnalysisResultsIndexFile)
 
   # results for only the 'rankFilter' most sensitive parameters will be returned
@@ -660,6 +665,7 @@ getSensitivityDataFrameForIndividuals <- function(indexDf, structureSet, pkParam
     individualId <- indexDf$IndividualId[n]
     quantile <- indexDf$Quantile[n]
     resultsFile <- file.path(structureSet$workflowFolder, structureSet$sensitivityAnalysisResultsFolder, indexDf$Filename[n])
+    re.tStoreFileMetadata(access = "read",filePath = resultsFile)
     individualsDf <- read.csv(resultsFile, check.names = FALSE, encoding = "UTF-8")
     colnames(individualsDf) <- c("QuantityPath", "Parameter", "PKParameter", "Value")
     individualsDf <- individualsDf[(individualsDf$PKParameter == pkParameter) & (individualsDf$QuantityPath == output), ]

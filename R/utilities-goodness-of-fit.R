@@ -21,7 +21,9 @@ plotMeanGoodnessOfFit <- function(structureSet,
   # Get the time profile for observed data
   if (!is.null(structureSet$simulationSet$observedDataFile)) {
     observations <- list()
+    re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$observedDataFile)
     observations$data <- readObservedDataFile(structureSet$simulationSet$observedDataFile)
+    re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$observedMetaDataFile)
     observations$metaData <- readObservedDataFile(structureSet$simulationSet$observedMetaDataFile)
     observations$filter <- structureSet$simulationSet$dataFilter
 
@@ -69,9 +71,11 @@ plotMeanGoodnessOfFit <- function(structureSet,
   }
 
   # Get the time profile for simulated data
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
   simulation <- loadSimulationWithUpdatedPaths(structureSet$simulationSet)
   simulationQuantity <- ospsuite::getAllQuantitiesMatching(structureSet$simulationSet$pathID, simulation)
 
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationResultFileNames)
   simulationResult <- ospsuite::importResultsFromCSV(
     simulation,
     structureSet$simulationResultFileNames
@@ -493,7 +497,9 @@ plotPopulationGoodnessOfFit <- function(structureSet,
   # Get the time profile for observed data
   if (!is.null(structureSet$simulationSet$observedDataFile)) {
     observations <- list()
+    re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$observedDataFile)
     observations$data <- readObservedDataFile(structureSet$simulationSet$observedDataFile)
+    re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$observedMetaDataFile)
     observations$metaData <- readObservedDataFile(structureSet$simulationSet$observedMetaDataFile)
     observations$filter <- structureSet$simulationSet$dataFilter
 
@@ -541,9 +547,11 @@ plotPopulationGoodnessOfFit <- function(structureSet,
   }
 
   # Get the time profile for simulated data
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
   simulation <- ospsuite::loadSimulation(structureSet$simulationSet$simulationFile)
   simulationQuantity <- ospsuite::getAllQuantitiesMatching(structureSet$simulationSet$pathID, simulation)
 
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationResultFileNames)
   simulationResult <- ospsuite::importResultsFromCSV(
     simulation,
     structureSet$simulationResultFileNames

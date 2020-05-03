@@ -7,6 +7,7 @@
 simulateModelForPopulation <- function(structureSet,
                                        settings = NULL,
                                        logFolder = getwd()) {
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$populationFile)
   population <- ospsuite::loadPopulation(structureSet$simulationSet$populationFile)
   numberOfIndividuals <- length(population$allIndividualIds)
   numberOfCores <- min(ifnotnull(inputToCheck = settings, outputIfNotNull = settings$numberOfCores, outputIfNull = 1), numberOfIndividuals)
@@ -23,7 +24,7 @@ simulateModelForPopulation <- function(structureSet,
       message = "Starting parallel population simulation",
       pathFolder = logFolder
     )
-
+    re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
     simulationResultFileNames <- runParallelPopulationSimulation(
       numberOfCores = numberOfCores,
       structureSet = structureSet,
@@ -91,6 +92,7 @@ simulateModelOnCore <- function(simulation,
 simulateModel <- function(structureSet,
                           settings = NULL,
                           logFolder = getwd()) {
+  re.tStoreFileMetadata(access = "read",filePath = structureSet$simulationSet$simulationFile)
   simulation <- loadSimulationWithUpdatedPaths(structureSet$simulationSet)
 
   logWorkflow(
@@ -107,12 +109,6 @@ simulateModel <- function(structureSet,
       pathFolder = logFolder,
       logTypes = LogTypes$Debug
     )
-  }
-
-  ospsuite::clearOutputs(simulation)
-  quantitiesToSimulate <- ospsuite::getAllQuantitiesMatching(structureSet$simulationSet$pathID, simulation)
-  for (quantity in quantitiesToSimulate) {
-    ospsuite::addOutputs(quantitiesOrPaths = quantity, simulation = simulation)
   }
 
   simRunOptions <- ospsuite::SimulationRunOptions$new(showProgress = ifnotnull(settings, outputIfNotNull = settings$showProgress, outputIfNull = FALSE))

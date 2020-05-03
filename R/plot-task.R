@@ -100,6 +100,7 @@ PlotTask <- R6::R6Class(
     #' @param reportFileName name of report file
     runTask = function(structureSets,
                        reportFileName) {
+      re.tStartAction(actionType = "TLFGeneration", re.className = class(self)[1], re.methodName = tail(strsplit(x = as.character(match.call()[1]), split = "$", fixed = TRUE)[[1]], 1))
       logWorkflow(
         message = paste0("Starting: ", self$message),
         pathFolder = self$workflowFolder
@@ -216,6 +217,7 @@ PlotTask <- R6::R6Class(
           logFolder = self$workflowFolder
         )
       }
+      re.tEndAction()
     }
   )
 )
