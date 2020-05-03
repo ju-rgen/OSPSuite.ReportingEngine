@@ -18,7 +18,7 @@ runscript <- function(){
   pwf$populationPKParameters$activate()
   pwf$populationSensitivityAnalysis$activate()
   pwf$populationSensitivityAnalysis$settings$showProgress <- TRUE
-  pwf$populationSensitivityAnalysis$settings$variableParameterPaths <- tree$Organism$Heart$Volume$path
+  pwf$populationSensitivityAnalysis$settings$variableParameterPaths <- c(tree$Organism$Heart$Volume$path,tree$Organism$Liver$Volume$path)
   pwf$populationSensitivityAnalysis$settings$pkParameterSelection <- c("C_max", "CL")
   pwf$populationSensitivityAnalysis$settings$numberOfCores <- 2
   pwf$populationSensitivityAnalysis$settings$quantileVec <- c( 0.25 , 0.75 )

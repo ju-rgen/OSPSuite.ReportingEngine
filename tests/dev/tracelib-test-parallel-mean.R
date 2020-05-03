@@ -18,7 +18,7 @@ runscript <- function(){
   mwf$simulate$settings$showProgress <- TRUE
   mwf$meanModelPKParameters$activate()
   mwf$meanModelSensitivityAnalysis$activate()
-  mwf$meanModelSensitivityAnalysis$settings$variableParameterPaths <- c(tree$Organism$Heart$Volume$path)
+  mwf$meanModelSensitivityAnalysis$settings$variableParameterPaths <- c(tree$Organism$Heart$Volume$path,tree$Organism$Liver$Volume$path)
   mwf$meanModelSensitivityAnalysis$settings$numberOfCores <- 2
   mwf$plotGoF$activate()
   mwf$plotMassBalance$activate()
