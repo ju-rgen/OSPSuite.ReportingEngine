@@ -291,6 +291,7 @@ PopulationWorkflow <- R6::R6Class(
         }
       }
       re.tEndAction()
+      re.tStoreFileMetadata(access = "write", filePath = self$reportFileName)
       re.tStoreFileMetadata(access = "write", filePath = file.path(self$workflowFolder, defaultFileNames$logInfoFile()))
       re.tEndMetadataCapture(outputFolder = "./")
     }
