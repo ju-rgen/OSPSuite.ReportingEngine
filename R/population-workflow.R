@@ -264,7 +264,7 @@ PopulationWorkflow <- R6::R6Class(
       re.tStartAction(actionType = "ReportGeneration", re.className = class(self)[1], re.methodName = tail(strsplit(x = as.character(match.call()[1]), split = "$", fixed = TRUE)[[1]], 1))
       if (self$resetReport$active) {
         resetReport(self$reportFileName,
-          logFolder = self$workflowFolder
+                    logFolder = self$workflowFolder
         )
       }
 
@@ -293,6 +293,10 @@ PopulationWorkflow <- R6::R6Class(
       re.tEndAction()
       re.tStoreFileMetadata(access = "write", filePath = self$reportFileName)
       re.tStoreFileMetadata(access = "write", filePath = file.path(self$workflowFolder, defaultFileNames$logInfoFile()))
+      re.tStoreFileMetadata(access = "write", filePath = file.path(self$workflowFolder, defaultFileNames$logDebugFile()))
+      if (file.exists(file.path(self$workflowFolder, defaultFileNames$logErrorFile()))){
+        re.tStoreFileMetadata(access = "write", filePath = file.path(self$workflowFolder, defaultFileNames$logErrorFile()))
+      }
       re.tEndMetadataCapture(outputFolder = "./")
     }
   )
