@@ -203,6 +203,7 @@ PlotTask <- R6::R6Class(
           plot = residualHistogramPlot,
           width = 16, height = 9, units = "cm"
         )
+        re.tStoreFileMetadata(access = "write", filePath = plotFileName)
         logWorkflow(
           message = paste0("Plot '", plotFileName, "' was successfully saved."),
           pathFolder = self$workflowFolder,
