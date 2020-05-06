@@ -291,7 +291,7 @@ MeanModelWorkflow <- R6::R6Class(
         pathFolder = self$workflowFolder
       )
       re.tStartAction(actionType = "ReportGeneration")
-      re.tStoreFileMetadata(access = "write", filePath = self$reportFileName)
+
       if (self$resetReport$active) {
         resetReport(self$reportFileName,
           logFolder = self$workflowFolder
@@ -324,6 +324,12 @@ MeanModelWorkflow <- R6::R6Class(
       if (file.exists(file.path(self$workflowFolder, defaultFileNames$logErrorFile()))){
         re.tStoreFileMetadata(access = "write", filePath = file.path(self$workflowFolder, defaultFileNames$logErrorFile()))
       }
+
+      if (file.exists(file.path(self$reportFileName))){
+        re.tStoreFileMetadata(access = "write", filePath = self$reportFileName)
+      }
+
+
       re.tEndAction()
       re.tEndMetadataCapture(outputFolder = "./")
     }
