@@ -22,10 +22,9 @@ re.tStoreFileMetadata <- function(...){
   }
 }
 
-re.tStartAction <- function(...,re.className=NULL,re.methodName=NULL){
+re.tStartAction <- function(...){
   print("tStartAction")
   if (tracelibCheck()){
-    print(paste0(re.className,"$",re.methodName))
     tracelib::tStartAction(...,offset = 1)
   }
 }

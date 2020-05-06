@@ -23,7 +23,7 @@ CalculatePKParametersTask <- R6::R6Class(
     #' Run task and save its output
     #' @param structureSets list of `SimulationStructure` R6 class
     runTask = function(structureSets) {
-      re.tStartAction(actionType = "Analysis", re.className = class(self)[1], re.methodName = tail(strsplit(x = as.character(match.call()[1]), split = "$", fixed = TRUE)[[1]], 1))
+      re.tStartAction(actionType = "Analysis")
       logWorkflow(
         message = paste0("Starting ", self$message),
         pathFolder = self$workflowFolder
