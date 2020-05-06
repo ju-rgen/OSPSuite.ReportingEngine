@@ -17,6 +17,7 @@ re.tEndMetadataCapture <- function(...){
 }
 
 re.tStoreFileMetadata <- function(...){
+  print("tStoreFileMetadata")
   if (tracelibCheck()){
     tracelib::tStoreFileMetadata(...)
   }
