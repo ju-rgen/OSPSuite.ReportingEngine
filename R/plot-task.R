@@ -77,7 +77,7 @@ PlotTask <- R6::R6Class(
           file = tableFileName,
           row.names = FALSE
         )
-
+        re.tStoreFileMetadata(access = "write", filePath = tableFileName)
         # If the task output no plot, but tables, tables will be included in the report
         if (is.null(taskResults$plots)) {
           addTableChunk(
@@ -175,6 +175,9 @@ PlotTask <- R6::R6Class(
           file = tableFileName,
           row.names = FALSE
         )
+
+        re.tStoreFileMetadata(access = "write", filePath = residualsAcrossAllSimulations)
+
         logWorkflow(
           message = paste0("Table '", tableFileName, "' was successfully saved."),
           pathFolder = self$workflowFolder,
