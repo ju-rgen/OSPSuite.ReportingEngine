@@ -42,7 +42,12 @@ R6 class for SensitivityAnalysisTask settings
 \subsection{Method \code{new()}}{
 Create a `SensitivityAnalysisTask` object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SensitivityAnalysisTask$new(getTaskResults = NULL, settings = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{SensitivityAnalysisTask$new(
+  getTaskResults = NULL,
+  settings = NULL,
+  nameTaskResults = "none",
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

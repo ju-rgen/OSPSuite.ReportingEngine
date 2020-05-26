@@ -42,7 +42,12 @@ R6 class for SimulationTask settings
 \subsection{Method \code{new()}}{
 Create a `SimulationTask` object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SimulationTask$new(getTaskResults = NULL, settings = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{SimulationTask$new(
+  getTaskResults = NULL,
+  settings = NULL,
+  nameTaskResults = "none",
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

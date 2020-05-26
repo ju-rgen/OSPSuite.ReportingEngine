@@ -42,7 +42,12 @@ R6 class for PlotTask settings
 \subsection{Method \code{new()}}{
 Create a `PlotTask` object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlotTask$new(reportTitle = NULL, getTaskResults = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PlotTask$new(
+  reportTitle = NULL,
+  getTaskResults = NULL,
+  nameTaskResults = "none",
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
