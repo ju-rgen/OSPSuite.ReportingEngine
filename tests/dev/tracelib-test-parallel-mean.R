@@ -3,7 +3,7 @@ library(ospsuite)
 
 
 runscript <- function(){
-  workflowFolder = paste0("C:/Users/ahamadeh/Dropbox/rproject/workflow/ex_",format(Sys.Date(), "%Y%m%d"), "_", format(Sys.time(), "%H%M%S"))
+  workflowFolder = paste0("C:/Users/ahamadeh/Dropbox/rproject/workflow/tracelib_par_mean_ex_",format(Sys.Date(), "%Y%m%d"), "_", format(Sys.time(), "%H%M%S"))
   devtools::load_all("C:/Users/ahamadeh/Dropbox/GitHub/OSP/OSPSuite.ReportingEngine")
   tree <- getSimulationTree("C:/Users/ahamadeh/Dropbox/GitHub/OSP/OSPSuite.ReportingEngine/tests/dev/individualPksimSim.pkml")
   ms <- SimulationSet$new(
@@ -21,7 +21,6 @@ runscript <- function(){
   mwf$meanModelSensitivityAnalysis$settings$variableParameterPaths <- c(tree$Organism$Heart$Volume$path,tree$Organism$Liver$Volume$path)
   mwf$meanModelSensitivityAnalysis$settings$numberOfCores <- 2
   mwf$plotGoF$activate()
-  mwf$plotMassBalance$activate()
   mwf$runWorkflow()
 }
 
