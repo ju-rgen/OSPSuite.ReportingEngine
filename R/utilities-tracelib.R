@@ -5,14 +5,14 @@ tracelibCheck <- function(){
 re.tStartMetadataCapture <- function(...){
   print("tStartMetadataCapture")
   if (tracelibCheck()){
-    tracelib::tStartMetadataCapture(...,offset = 2)
+    return(tracelib::tStartMetadataCapture(...,offset = 2))
   }
 }
 
-re.tEndMetadataCapture <- function(...){
+re.tEndMetadataCapture <- function(...,actionToken){
   print("tEndMetadataCapture")
   if (tracelibCheck()){
-    tracelib::tEndMetadataCapture(...,offset = 2)
+    tracelib::tEndMetadataCapture(...,actionToken = actionToken)
   }
 }
 
@@ -26,14 +26,14 @@ re.tStoreFileMetadata <- function(...){
 re.tStartAction <- function(...){
   print("tStartAction")
   if (tracelibCheck()){
-    tracelib::tStartAction(...,offset = 1)
+    return(tracelib::tStartAction(...,offset = 1))
   }
 }
 
-re.tEndAction <- function(...){
+re.tEndAction <- function(...,actionToken){
   print("tEndAction")
   if (tracelibCheck()){
-    tracelib::tEndAction(...,offset = 1)
+    tracelib::tEndAction(...,actionToken = actionToken)
   }
 }
 

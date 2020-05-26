@@ -10,6 +10,7 @@ PlotTask <- R6::R6Class(
   public = list(
     title = NULL,
     getTaskResults = NULL,
+    nameTaskResults = "none",
 
     #' @description
     #' Create a `PlotTask` object
@@ -19,10 +20,12 @@ PlotTask <- R6::R6Class(
     #' @return A new `PlotTask` object
     initialize = function(reportTitle = NULL,
                           getTaskResults = NULL,
+                          nameTaskResults = "none",
                           ...) {
       super$initialize(...)
       self$title <- reportTitle
       self$getTaskResults <- getTaskResults
+      self$nameTaskResults <- nameTaskResults
     },
 
     #' @description
@@ -101,7 +104,10 @@ PlotTask <- R6::R6Class(
     #' @param reportFileName name of report file
     runTask = function(structureSets,
                        reportFileName) {
-      re.tStartAction(actionType = "TLFGeneration")
+
+      print(paste0("nameTaskResults: ", self$nameTaskResults)) # temporary
+      actionToken <- re.tStartAction(actionType = "TLFGeneration", actionNameExtension = self$nameTaskResults )
+
       logWorkflow(
         message = paste0("Starting: ", self$message),
         pathFolder = self$workflowFolder
@@ -222,7 +228,7 @@ PlotTask <- R6::R6Class(
           logFolder = self$workflowFolder
         )
       }
-      re.tEndAction()
+      re.tEndAction(actionToken = actionToken)
     }
   )
 )

@@ -60,6 +60,7 @@ PopulationWorkflow <- R6::R6Class(
                                           message = defaultWorkflowMessages$simulate) {
       self$simulatePopulation <- SimulationTask$new(
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -84,6 +85,7 @@ PopulationWorkflow <- R6::R6Class(
                                              message = defaultWorkflowMessages$calculatePKParameters) {
       self$populationPKParameters <- CalculatePKParametersTask$new(
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         settings = settings,
@@ -108,6 +110,7 @@ PopulationWorkflow <- R6::R6Class(
                                                      message = NULL) {
       self$populationSensitivityAnalysis <- PopulationSensitivityAnalysisTask$new(
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         settings = settings,
@@ -136,6 +139,7 @@ PopulationWorkflow <- R6::R6Class(
       self$plotDemography <- PlotTask$new(
         reportTitle = reportTitle,
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -163,6 +167,7 @@ PopulationWorkflow <- R6::R6Class(
       self$plotGoF <- PlotTask$new(
         reportTitle = reportTitle,
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -190,6 +195,7 @@ PopulationWorkflow <- R6::R6Class(
       self$plotPKParameters <- PlotTask$new(
         reportTitle = reportTitle,
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -217,6 +223,7 @@ PopulationWorkflow <- R6::R6Class(
       self$plotSensitivity <- PlotTask$new(
         reportTitle = reportTitle,
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -256,12 +263,12 @@ PopulationWorkflow <- R6::R6Class(
     #' # CORE STAGE 3:  CALCULATE SENSITIVITY
     #' # 3a - Plots and Tables based on sensitivity results
     runWorkflow = function() {
-      re.tStartMetadataCapture(metaDataCapture = TRUE)
+      actionToken1 <- re.tStartMetadataCapture(metaDataCapture = TRUE)
       logWorkflow(
         message = "Starting run of population workflow",
         pathFolder = self$workflowFolder
       )
-      re.tStartAction(actionType = "ReportGeneration")
+      actionToken2 <- re.tStartAction(actionType = "ReportGeneration", actionNameExtension = "runWorkflow")
       if (self$resetReport$active) {
         resetReport(self$reportFileName,
                     logFolder = self$workflowFolder
@@ -301,8 +308,8 @@ PopulationWorkflow <- R6::R6Class(
         re.tStoreFileMetadata(access = "write", filePath = self$reportFileName)
       }
 
-      re.tEndAction()
-      re.tEndMetadataCapture(outputFolder = "./")
+      re.tEndAction(actionToken = actionToken2)
+      re.tEndMetadataCapture(outputFolder = "./",actionToken = actionToken1)
     }
   )
 )

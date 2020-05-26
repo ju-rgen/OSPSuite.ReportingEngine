@@ -63,6 +63,7 @@ MeanModelWorkflow <- R6::R6Class(
                                 settings = NULL) {
       self$simulate <- SimulationTask$new(
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -87,6 +88,7 @@ MeanModelWorkflow <- R6::R6Class(
                                              settings = NULL) {
       self$meanModelPKParameters <- CalculatePKParametersTask$new(
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -111,6 +113,7 @@ MeanModelWorkflow <- R6::R6Class(
                                                     settings = NULL) {
       self$meanModelSensitivityAnalysis <- SensitivityAnalysisTask$new(
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -138,6 +141,7 @@ MeanModelWorkflow <- R6::R6Class(
       self$plotGoF <- PlotTask$new(
         reportTitle = reportTitle,
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -165,6 +169,7 @@ MeanModelWorkflow <- R6::R6Class(
       self$plotPKParameters <- PlotTask$new(
         reportTitle = reportTitle,
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -192,6 +197,7 @@ MeanModelWorkflow <- R6::R6Class(
       self$plotMassBalance <- PlotTask$new(
         reportTitle = reportTitle,
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -219,6 +225,7 @@ MeanModelWorkflow <- R6::R6Class(
       self$plotAbsorption <- PlotTask$new(
         reportTitle = reportTitle,
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -246,6 +253,7 @@ MeanModelWorkflow <- R6::R6Class(
       self$plotSensitivity <- PlotTask$new(
         reportTitle = reportTitle,
         getTaskResults = taskFunction,
+        nameTaskResults = deparse(substitute(taskFunction)),
         outputFolder = outputFolder,
         workflowFolder = self$workflowFolder,
         active = active,
@@ -285,12 +293,12 @@ MeanModelWorkflow <- R6::R6Class(
     #' # 4) Render report
     #' @return All results and plots as a structured output in the workflow folder
     runWorkflow = function() {
-      re.tStartMetadataCapture(metaDataCapture = TRUE)
+      actionToken1 <- re.tStartMetadataCapture(metaDataCapture = TRUE)
       logWorkflow(
         message = "Starting run of mean model workflow",
         pathFolder = self$workflowFolder
       )
-      re.tStartAction(actionType = "ReportGeneration")
+      actionToken2 <- re.tStartAction(actionType = "ReportGeneration", actionNameExtension = "runWorkflow")
 
       if (self$resetReport$active) {
         resetReport(self$reportFileName,
@@ -330,8 +338,8 @@ MeanModelWorkflow <- R6::R6Class(
       }
 
 
-      re.tEndAction()
-      re.tEndMetadataCapture(outputFolder = "./")
+      re.tEndAction(actionToken = actionToken2)
+      re.tEndMetadataCapture(outputFolder = "./",actionToken = actionToken1)
     }
   )
 )

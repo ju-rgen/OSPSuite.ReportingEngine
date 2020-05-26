@@ -8,6 +8,7 @@ SimulationTask <- R6::R6Class(
   public = list(
     getTaskResults = NULL,
     settings = NULL,
+    nameTaskResults = "none",
 
     #' @description
     #' Create a `SimulationTask` object
@@ -17,6 +18,7 @@ SimulationTask <- R6::R6Class(
     #' @return A new `SimulationTask` object
     initialize = function(getTaskResults = NULL,
                           settings = NULL,
+                          nameTaskResults = "none",
                           ...) {
       super$initialize(...)
       if (is.null(settings)) {
@@ -26,6 +28,7 @@ SimulationTask <- R6::R6Class(
         self$settings <- settings
       }
       self$getTaskResults <- getTaskResults
+      self$nameTaskResults <- nameTaskResults
     },
 
 
@@ -46,7 +49,7 @@ SimulationTask <- R6::R6Class(
     #' Run task and save its output
     #' @param structureSets list of `SimulationStructure` R6 class
     runTask = function(structureSets) {
-      re.tStartAction(actionType = "Simulation")
+      actionToken <- re.tStartAction(actionType = "Simulation", actionNameExtension = self$nameTaskResults)
       logWorkflow(
         message = paste0("Starting ", self$message),
         pathFolder = self$workflowFolder
@@ -74,7 +77,7 @@ SimulationTask <- R6::R6Class(
           )
         }
       }
-      re.tEndAction()
+      re.tEndAction(actionToken = actionToken)
     }
   )
 )
